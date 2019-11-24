@@ -20,7 +20,7 @@ script:
   - cp ./app/icons/128x128/cool-retro-term.png appdir/
   - cp -r ./app/qml appdir/usr/
   - cp -r ./qmltermwidget/QMLTermWidget appdir/usr/qml/ # Workaround for https://github.com/probonopd/linuxdeployqt/issues/78
-  - wget -c https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
+  - wget -c -nv https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
   - chmod a+x linuxdeployqt-*.AppImage 
   - ./linuxdeployqt-*.AppImage appdir/usr/bin/cool-retro-term -qmldir=./app/qml/ -qmldir=./qmltermwidget/ -bundle-non-qt-libs
   - wget -c -nv https://github.com/$(wget -q https://github.com/probonopd/go-appimage/releases -O - | grep "appimagetool-.*-x86_64.AppImage" | head -n 1 | cut -d '"' -f 2)
