@@ -20,9 +20,7 @@ script:
   - cp -r ./qmltermwidget/QMLTermWidget appdir/usr/qml/ # Workaround for https://github.com/probonopd/linuxdeployqt/issues/78
   - wget -c https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage
   - chmod a+x linuxdeployqt-*.AppImage 
-  - ./linuxdeployqt-*.AppImage appdir/usr/bin/cool-retro-term -qmldir=./app/qml/ -qmldir=./qmltermwidget/ # -verbose=3 2>&1 | grep "path:" -C 3
-  - ./linuxdeployqt-*.AppImage appdir/usr/bin/cool-retro-term -qmldir=./app/qml/ -qmldir=./qmltermwidget/ -verbose=2 -appimage
-  
-# See https://github.com/probonopd/uploadtool/ for a way to upload to GitHub Releases automatically
-after_success:
-  - curl --upload-file ./Cool_Retro_Term-*.AppImage https://transfer.sh/Cool_Retro_Term-git.$(git rev-parse --short HEAD)-x86_64.AppImage
+  - ./linuxdeployqt-*.AppImage appdir/usr/bin/cool-retro-term -qmldir=./app/qml/ -qmldir=./qmltermwidget/ -bundle-non-qt-libs
+  - wget -c  https://github.com/$(wget -q https://github.com/probonopd/go-appimage/releases -O - | grep "appimaged.*.AppImage" | head -n 1 | cut -d '"' -f 2)
+  - chmod +x ./appimagetool-*.AppImage
+  - ./appimagetool-*.AppImage appdir/
