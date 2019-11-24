@@ -12,7 +12,7 @@ install:
 
 script:
   - qmake
-  - make -j2
+  - make -j$(nproc)
   - mkdir -p appdir/usr/share/appdata appdir/usr/bin
   - cp packaging/appdata/cool-retro-term.appdata.xml appdir/usr/share/appdata/
   - cp cool-retro-term appdir/usr/bin/
@@ -26,3 +26,8 @@ script:
   - wget -c -nv https://github.com/$(wget -q https://github.com/probonopd/go-appimage/releases -O - | grep "appimagetool-.*-x86_64.AppImage" | head -n 1 | cut -d '"' -f 2)
   - chmod +x ./appimagetool-*.AppImage
   - ./appimagetool-*.AppImage appdir/
+
+branches:
+  except:
+    - # Do not build tags that we create when we upload to GitHub Releases
+    - /^(?i:continuous)/
